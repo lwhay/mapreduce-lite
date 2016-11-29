@@ -31,68 +31,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 namespace mapreduce_lite {
 
-//-----------------------------------------------------------------------------
-// The interface implemented by ``real'' readers.
-//-----------------------------------------------------------------------------
-class Reader {
-public:
-	Reader() { input_stream_ = NULL; }
-	virtual ~Reader() { Close(); }
+  //-----------------------------------------------------------------------------
+  // The interface implemented by ``real'' readers.
+  //-----------------------------------------------------------------------------
+  class Reader {
+    public:
+      Reader() { input_stream_ = NULL; }
+      virtual ~Reader() { Close(); }
 
-	virtual void Open(const std::string& source_name);
-	virtual void Close();
+      virtual void Open(const std::string& source_name);
+      virtual void Close();
 
-	// Returns false to indicate that the current read failed and no
-	// further reading operations should be performed.
-	virtual bool Read(std::string* key, std::string* value) = 0;
+      // Returns false to indicate that the current read failed and no
+      // further reading operations should be performed.
+      virtual bool Read(std::string* key, std::string* value) = 0;
 
-protected:
-	std::string input_filename_;
-	FILE* input_stream_;
-};
-
-
-//-----------------------------------------------------------------------------
-// Read each record as a line in a text file.
-// - The key returned by Read() is "filename-offset", the value
-//   returned by Read is the content of a line.
-// - The value might be empty if it is reading a too long line.
-// - The '\r' (if there is any) and '\n' at the end of a line are
-//   removed.
-//-----------------------------------------------------------------------------
-class TextReader : public Reader {
-public:
-	TextReader();
-	virtual bool Read(std::string* key, std::string* value);
-private:
-	scoped_array<char> line_;      // input line buffer
-	int line_num_;                 // count line number
-	bool reading_a_long_line_;     // is reading a lone line
-};
+    protected:
+      std::string input_filename_;
+      FILE* input_stream_;
+  };
 
 
-//-----------------------------------------------------------------------------
-// Read each record as a KeyValuePair proto message in a protofile.
-//-----------------------------------------------------------------------------
-class ProtoRecordReader : public Reader {
-public:
-	virtual bool Read(std::string* key, std::string* value);
-};
+  //-----------------------------------------------------------------------------
+  // Read each record as a line in a text file.
+  // - The key returned by Read() is "filename-offset", the value
+  //   returned by Read is the content of a line.
+  // - The value might be empty if it is reading a too long line.
+  // - The '\r' (if there is any) and '\n' at the end of a line are
+  //   removed.
+  //-----------------------------------------------------------------------------
+  class TextReader : public Reader {
+    public:
+      TextReader();
+      virtual bool Read(std::string* key, std::string* value);
+    private:
+      scoped_array<char> line_;      // input line buffer
+      int line_num_;                 // count line number
+      bool reading_a_long_line_;     // is reading a lone line
+  };
 
 
-CLASS_REGISTER_DEFINE_REGISTRY(mapreduce_lite_reader_registry, Reader);
+  //-----------------------------------------------------------------------------
+  // Read each record as a KeyValuePair proto message in a protofile.
+  //-----------------------------------------------------------------------------
+  class ProtoRecordReader : public Reader {
+    public:
+      virtual bool Read(std::string* key, std::string* value);
+  };
+
+
+  CLASS_REGISTER_DEFINE_REGISTRY(mapreduce_lite_reader_registry, Reader);
 
 #define REGISTER_READER(format_name, reader_name)       \
-	CLASS_REGISTER_OBJECT_CREATOR(                        \
-	mapreduce_lite_reader_registry,                   \
-	Reader,                                           \
-	format_name,                                      \
-	reader_name)
+  CLASS_REGISTER_OBJECT_CREATOR(                        \
+  mapreduce_lite_reader_registry,                   \
+  Reader,                                           \
+  format_name,                                      \
+  reader_name)
 
 #define CREATE_READER(format_name)              \
-	CLASS_REGISTER_CREATE_OBJECT(                 \
-	mapreduce_lite_reader_registry,           \
-	format_name)
+  CLASS_REGISTER_CREATE_OBJECT(                 \
+  mapreduce_lite_reader_registry,           \
+  format_name)
 
 }  // namespace mapreduce_lite
 

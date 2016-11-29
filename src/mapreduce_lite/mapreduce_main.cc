@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "src/mapreduce_lite/mapreduce_lite.h"
 
 namespace mapreduce_lite {
-bool IAmMapWorker();
-bool Initialize();
-void Finalize();
-void MapWork();
-void ReduceWork();
+  bool IAmMapWorker();
+  bool Initialize();
+  void Finalize();
+  void MapWork();
+  void ReduceWork();
 }  // namespace mapreduce_lite
 
 //-----------------------------------------------------------------------------

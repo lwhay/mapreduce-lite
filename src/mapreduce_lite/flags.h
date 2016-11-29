@@ -41,38 +41,38 @@ DECLARE_bool(mr_batch_reduction);
 DECLARE_int32(mr_max_map_output_size);
 namespace mapreduce_lite {
 
-//-----------------------------------------------------------------------------
-// Check the correctness of flags.
-//-----------------------------------------------------------------------------
-bool ValidateCommandLineFlags();
+  //-----------------------------------------------------------------------------
+  // Check the correctness of flags.
+  //-----------------------------------------------------------------------------
+  bool ValidateCommandLineFlags();
 
-//-----------------------------------------------------------------------------
-// Invoke ValidateCommandLineFlags() before using the following accessors.
-//-----------------------------------------------------------------------------
-bool IAmMapWorker();
-bool IAmReduceWorker();
-bool IAmMapOnlyWorker();
-const char* WorkerType();
-int MapWorkerId();
-int ReduceWorkerId();
-int WorkerId();
-int NumMapWorkers();
-int NumReduceWorkers();
-int NumWorkers();
-int MessageQueueSize();
-int NumReduceInputBufferFiles();
-const std::string& InputFormat();
-const std::string& OutputFormat();
-const std::vector<std::string>& ReduceWorkers();
-const std::string& InputFilepattern();
-const std::vector<std::string>& OutputFiles();
-std::string MapOutputBufferFilebase(int reducer_id);
-std::string ReduceInputBufferFilebase();
-int ReduceInputBufferSize();
-int MapOutputBufferSize();
-std::string LogFilebase();
-Mapper* CreateMapper();
-ReducerBase* CreateReducer();
+  //-----------------------------------------------------------------------------
+  // Invoke ValidateCommandLineFlags() before using the following accessors.
+  //-----------------------------------------------------------------------------
+  bool IAmMapWorker();
+  bool IAmReduceWorker();
+  bool IAmMapOnlyWorker();
+  const char* WorkerType();
+  int MapWorkerId();
+  int ReduceWorkerId();
+  int WorkerId();
+  int NumMapWorkers();
+  int NumReduceWorkers();
+  int NumWorkers();
+  int MessageQueueSize();
+  int NumReduceInputBufferFiles();
+  const std::string& InputFormat();
+  const std::string& OutputFormat();
+  const std::vector<std::string>& ReduceWorkers();
+  const std::string& InputFilepattern();
+  const std::vector<std::string>& OutputFiles();
+  std::string MapOutputBufferFilebase(int reducer_id);
+  std::string ReduceInputBufferFilebase();
+  int ReduceInputBufferSize();
+  int MapOutputBufferSize();
+  std::string LogFilebase();
+  Mapper* CreateMapper();
+  ReducerBase* CreateReducer();
 
 }  // namespace mapreduce_lite
 

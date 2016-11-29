@@ -38,26 +38,26 @@ namespace a_test_namespace {
 
 // A maper class, an incremental reducer class and a batch reducer class:
 class ATestMapper : public mapreduce_lite::Mapper {
- public:
-  virtual void Map(const string& key, const string& value) {}
-  const char* name() { return "ATestMapper"; }
+public:
+	virtual void Map(const string& key, const string& value) {}
+	const char* name() { return "ATestMapper"; }
 };
 
 class ATestIncrementalReducer : public mapreduce_lite::IncrementalReducer {
- public:
-  virtual void* BeginReduce(const string& key, const string& value) {
-    return NULL;
-  }
-  virtual void PartialReduce(const string& key, const string& value,
-                             void* partial_result) {}
-  virtual void EndReduce(const string& key, void* partial_result) {}
-  const char* name() { return "ATestIncrementalReducer"; }
+public:
+	virtual void* BeginReduce(const string& key, const string& value) {
+		return NULL;
+	}
+	virtual void PartialReduce(const string& key, const string& value,
+														 void* partial_result) {}
+	virtual void EndReduce(const string& key, void* partial_result) {}
+	const char* name() { return "ATestIncrementalReducer"; }
 };
 
 class ATestBatchReducer : public mapreduce_lite::BatchReducer {
- public:
-  virtual void Reduce(const string& key, ReduceInputIterator* values) {}
-  const char* name() { return "ATestBatchReducer"; }
+public:
+	virtual void Reduce(const string& key, ReduceInputIterator* values) {}
+	const char* name() { return "ATestBatchReducer"; }
 };
 
 REGISTER_MAPPER(ATestMapper);
@@ -68,14 +68,14 @@ REGISTER_BATCH_REDUCER(ATestBatchReducer);
 
 
 TEST(MapReduceLiteRegistererTest, CreateMapperReducer) {
-  Mapper* mapper = CREATE_MAPPER("ATestMapper");
-  EXPECT_TRUE(mapper != NULL);
+	Mapper* mapper = CREATE_MAPPER("ATestMapper");
+	EXPECT_TRUE(mapper != NULL);
 
-  BatchReducer* batch_reducer =
-      CREATE_BATCH_REDUCER("ATestBatchReducer");
-  EXPECT_TRUE(batch_reducer != NULL);
+	BatchReducer* batch_reducer =
+			CREATE_BATCH_REDUCER("ATestBatchReducer");
+	EXPECT_TRUE(batch_reducer != NULL);
 
-  IncrementalReducer* incremental_reducer =
-      CREATE_INCREMENTAL_REDUCER("ATestIncrementalReducer");
-  EXPECT_TRUE(incremental_reducer != NULL);
+	IncrementalReducer* incremental_reducer =
+			CREATE_INCREMENTAL_REDUCER("ATestIncrementalReducer");
+	EXPECT_TRUE(incremental_reducer != NULL);
 }

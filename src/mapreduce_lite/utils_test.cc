@@ -26,5 +26,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // }
 
 TEST(MapReduceLiteUtils, CreateNonExistingFile) {
-  EXPECT_TRUE(OpenFileOrDie("/tmp/a-non-existing-file", "w") != NULL);
+	EXPECT_TRUE(OpenFileOrDie("/tmp/a-non-existing-file", "w") != NULL);
 }

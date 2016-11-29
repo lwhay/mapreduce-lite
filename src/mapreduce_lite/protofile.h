@@ -49,30 +49,30 @@ namespace mapreduce_lite {
 namespace protofile {
 
 bool ReadRecord(FILE* input,
-                std::string* key,
-                std::string* value);
+								std::string* key,
+								std::string* value);
 bool ReadRecord(FILE* input,
-                std::string* key,
-                ::google::protobuf::Message* value);
+								std::string* key,
+								::google::protobuf::Message* value);
 bool ReadRecord(FILE* input,
-                ::google::protobuf::Message* key,
-                std::string* value);
+								::google::protobuf::Message* key,
+								std::string* value);
 bool ReadRecord(FILE* input,
-                ::google::protobuf::Message* key,
-                ::google::protobuf::Message* value);
+								::google::protobuf::Message* key,
+								::google::protobuf::Message* value);
 
 bool WriteRecord(FILE* output,
-                 const std::string& key,
-                 const std::string& value);
+								 const std::string& key,
+								 const std::string& value);
 bool WriteRecord(FILE* output,
-                 const std::string& key,
-                 const ::google::protobuf::Message& value);
+								 const std::string& key,
+								 const ::google::protobuf::Message& value);
 bool WriteRecord(FILE* output,
-                 const ::google::protobuf::Message& key,
-                 const std::string& value);
+								 const ::google::protobuf::Message& key,
+								 const std::string& value);
 bool WriteRecord(FILE* output,
-                 const ::google::protobuf::Message& key,
-                 const ::google::protobuf::Message& value);
+								 const ::google::protobuf::Message& key,
+								 const ::google::protobuf::Message& value);
 
 }  // namespace protofile
 }  // namespace mapreduce_lite

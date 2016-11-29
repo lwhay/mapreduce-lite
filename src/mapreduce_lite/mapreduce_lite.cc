@@ -103,7 +103,7 @@ scoped_array<char>& GetMapOutputReceiveBuffer() {
 
 scoped_ptr<vector<SortedBuffer*> >& GetReduceInputBuffers() {
   static scoped_ptr<vector<SortedBuffer*> > reduce_input_buffers(
-      new vector<SortedBuffer*>);
+        new vector<SortedBuffer*>);
   return reduce_input_buffers;
 }
 
@@ -199,7 +199,7 @@ bool Initialize() {
     try {
       for (int i = 0; i < NumReduceWorkers(); ++i) {
         (*GetReduceInputBuffers())[i] = new SortedBuffer(
-            MapOutputBufferFilebase(i), ReduceInputBufferSize());
+              MapOutputBufferFilebase(i), ReduceInputBufferSize());
         LOG(INFO) << "create map output buffer"
                   << i
                   << MapOutputBufferFilebase(i);
@@ -278,9 +278,9 @@ void MapOutput(int reduce_worker_id, const string& key, const string& value) {
     } else {
       for (int r_id = 0; r_id < NumReduceWorkers(); ++r_id) {
         if (GetCommunicator()->Send(
-                GetMapOutputSendBuffer().get(),
-                *key_size + *value_size + 2 * sizeof(uint32),
-                r_id) < 0) {
+              GetMapOutputSendBuffer().get(),
+              *key_size + *value_size + 2 * sizeof(uint32),
+              r_id) < 0) {
           LOG(FATAL) << "Send error to reduce worker: " << r_id;
         }
       }
@@ -288,13 +288,13 @@ void MapOutput(int reduce_worker_id, const string& key, const string& value) {
   } else {
     if (reduce_worker_id >= 0) {
       (*GetReduceInputBuffers())[reduce_worker_id]->Insert(
-          string(data, *key_size),
-          string(data + *key_size, *value_size));
+            string(data, *key_size),
+            string(data + *key_size, *value_size));
     } else {
       for (int r_id = 0; r_id < NumReduceWorkers(); ++r_id) {
         (*GetReduceInputBuffers())[r_id]->Insert(
-            string(data, *key_size),
-            string(data + *key_size, *value_size));
+              string(data, *key_size),
+              string(data + *key_size, *value_size));
       }
     }
   }
@@ -515,7 +515,7 @@ void ReduceWork() {
   if (!FLAGS_mr_batch_reduction) {
     LOG(INFO) << "Finalizing incremental reduction ...";
     for (PartialReduceResults::const_iterator iter =
-             partial_reduce_results->begin();
+         partial_reduce_results->begin();
          iter != partial_reduce_results->end(); ++iter) {
       reinterpret_cast<IncrementalReducer*>(GetReducer().get())->
           EndReduce(iter->first, iter->second);
@@ -548,7 +548,7 @@ void ReduceWork() {
     // remove reduce input buffer files
     for (int i_file = 0; i_file < NumReduceInputBufferFiles(); ++i_file) {
       string filename = SortedBuffer::SortedFilename(
-          ReduceInputBufferFilebase(), i_file);
+            ReduceInputBufferFilebase(), i_file);
       LOG(INFO) << "Removing : " << filename
                 << " size = "<< boost::filesystem::file_size(filename);
       boost::filesystem::remove(filename);

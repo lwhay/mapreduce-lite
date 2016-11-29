@@ -35,34 +35,34 @@ static const char* kTestKey = "a key";
 static const char* kTestValue = "a value";
 
 static void CheckWriteReadConsistency(const string& filename) {
-  KeyValuePair pair;
-  pair.set_key(kTestKey);
-  pair.set_value(kTestValue);
+	KeyValuePair pair;
+	pair.set_key(kTestKey);
+	pair.set_value(kTestValue);
 
-  FILE* file = fopen(filename.c_str(), "w");
-  CHECK(file != NULL);
-  WriteRecord(file, kTestKey, kTestValue);
-  WriteRecord(file, kTestKey, pair);
-  fclose(file);
+	FILE* file = fopen(filename.c_str(), "w");
+	CHECK(file != NULL);
+	WriteRecord(file, kTestKey, kTestValue);
+	WriteRecord(file, kTestKey, pair);
+	fclose(file);
 
-  CHECK((file = fopen(filename.c_str(), "r")) != NULL);
-  string key, value;
-  CHECK(ReadRecord(file, &key, &value));
-  EXPECT_EQ(key, kTestKey);
-  EXPECT_EQ(value, kTestValue);
+	CHECK((file = fopen(filename.c_str(), "r")) != NULL);
+	string key, value;
+	CHECK(ReadRecord(file, &key, &value));
+	EXPECT_EQ(key, kTestKey);
+	EXPECT_EQ(value, kTestValue);
 
-  pair.Clear();
-  CHECK(ReadRecord(file, &key, &pair));
-  EXPECT_EQ(pair.key(), kTestKey);
-  EXPECT_EQ(pair.value(), kTestValue);
+	pair.Clear();
+	CHECK(ReadRecord(file, &key, &pair));
+	EXPECT_EQ(pair.key(), kTestKey);
+	EXPECT_EQ(pair.value(), kTestValue);
 
-  EXPECT_TRUE(!ReadRecord(file, &key, &value));
+	EXPECT_TRUE(!ReadRecord(file, &key, &value));
 }
 
 }  // namespace protofile
 }  // namespace mapreduce_lite
 
 TEST(ProtofileTest, LocalRecordIO) {
-  static const char* kFilename = "/tmp/ProtofileTestLocalRecordIO";
-  mapreduce_lite::protofile::CheckWriteReadConsistency(kFilename);
+	static const char* kFilename = "/tmp/ProtofileTestLocalRecordIO";
+	mapreduce_lite::protofile::CheckWriteReadConsistency(kFilename);
 }

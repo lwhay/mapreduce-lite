@@ -87,7 +87,7 @@ using std::string;
 //
 //-----------------------------------------------------------------------------
 class Mapper {
- public:
+public:
   virtual ~Mapper() {}
 
   virtual void Start() {}
@@ -95,7 +95,7 @@ class Mapper {
   virtual void Flush() {}
   virtual int Shard(const string& key, int num_reduce_shards);
 
- protected:
+protected:
   virtual void Output(const string& key, const string& value);
   virtual void OutputToShard(int reduce_shard,
                              const string& key, const string& value);
@@ -151,7 +151,7 @@ class Mapper {
 //
 //-----------------------------------------------------------------------------
 class ReducerBase {
- public:
+public:
   virtual ~ReducerBase() {}
   const string& GetOutputFormat() const;
 
@@ -174,7 +174,7 @@ class ReducerBase {
 
 
 class IncrementalReducer : public ReducerBase {
- public:
+public:
   virtual ~IncrementalReducer() {}
 
   virtual void* BeginReduce(const string& key,
@@ -209,7 +209,7 @@ class IncrementalReducer : public ReducerBase {
 //
 //-----------------------------------------------------------------------------
 class BatchReducer : public ReducerBase {
- public:
+public:
   virtual ~BatchReducer() {}
 
   virtual void Reduce(const string& key,
@@ -240,38 +240,38 @@ CLASS_REGISTER_DEFINE_REGISTRY(mapreduce_lite_batch_reducer_registry,
 
 #define REGISTER_MAPPER(mapper_name)            \
   CLASS_REGISTER_OBJECT_CREATOR(                \
-      mapreduce_lite_mapper_registry,           \
-      mapreduce_lite::Mapper,                   \
-      #mapper_name,                             \
-      mapper_name)
+  mapreduce_lite_mapper_registry,           \
+  mapreduce_lite::Mapper,                   \
+#mapper_name,                             \
+  mapper_name)
 
 #define CREATE_MAPPER(mapper_name_as_string)    \
   CLASS_REGISTER_CREATE_OBJECT(                 \
-      mapreduce_lite_mapper_registry,           \
-      mapper_name_as_string)
+  mapreduce_lite_mapper_registry,           \
+  mapper_name_as_string)
 
 #define REGISTER_INCREMENTAL_REDUCER(incremental_reducer_name)  \
   CLASS_REGISTER_OBJECT_CREATOR(                                \
-      mapreduce_lite_incremental_reducer_registry,              \
-      mapreduce_lite::IncrementalReducer,                       \
-      #incremental_reducer_name,                                \
-      incremental_reducer_name)
+  mapreduce_lite_incremental_reducer_registry,              \
+  mapreduce_lite::IncrementalReducer,                       \
+#incremental_reducer_name,                                \
+  incremental_reducer_name)
 
 #define CREATE_INCREMENTAL_REDUCER(incremental_reducer_name_as_string)  \
   CLASS_REGISTER_CREATE_OBJECT(                                         \
-      mapreduce_lite_incremental_reducer_registry,                      \
-      incremental_reducer_name_as_string)
+  mapreduce_lite_incremental_reducer_registry,                      \
+  incremental_reducer_name_as_string)
 
 #define REGISTER_BATCH_REDUCER(batch_reducer_name)      \
   CLASS_REGISTER_OBJECT_CREATOR(                        \
-      mapreduce_lite_batch_reducer_registry,            \
-      mapreduce_lite::BatchReducer,                     \
-      #batch_reducer_name,                              \
-      batch_reducer_name)
+  mapreduce_lite_batch_reducer_registry,            \
+  mapreduce_lite::BatchReducer,                     \
+#batch_reducer_name,                              \
+  batch_reducer_name)
 
 #define CREATE_BATCH_REDUCER(batch_reducer_name_as_string)      \
   CLASS_REGISTER_CREATE_OBJECT(                                 \
-      mapreduce_lite_batch_reducer_registry,                    \
-      batch_reducer_name_as_string)
+  mapreduce_lite_batch_reducer_registry,                    \
+  batch_reducer_name_as_string)
 
 #endif  // MAPREDUCE_LITE_MAPREDUCE_LITE_H_

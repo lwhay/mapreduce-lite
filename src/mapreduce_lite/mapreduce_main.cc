@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
   }
 
   LOG(INFO) << "I am a " << (mapreduce_lite::IAmMapWorker() ? "map worker" :
-                             "reduce worker");
+                                                              "reduce worker");
 
   if (mapreduce_lite::IAmMapWorker()) {
     mapreduce_lite::MapWork();

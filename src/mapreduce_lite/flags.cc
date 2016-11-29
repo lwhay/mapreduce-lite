@@ -234,8 +234,8 @@ bool ValidateCommandLineFlags() {
                  << "reduction mode (if not in map-only mode)";
       flags_valid = false;
     } else if (IAmMapWorker() && boost::filesystem::exists(
-        ::sorted_buffer::SortedBuffer::SortedFilename(
-            MapOutputBufferFilebase(0), 0))) {
+                 ::sorted_buffer::SortedBuffer::SortedFilename(
+                   MapOutputBufferFilebase(0), 0))) {
       LOG(ERROR) << "Please delete existing reduce input buffer files: "
                  << MapOutputBufferFilebase(0) << "* ";
       flags_valid = false;
@@ -344,8 +344,8 @@ int NumWorkers() {
 
 int MessageQueueSize() {
   return IAmMapWorker() ?
-      FLAGS_mr_mapper_message_queue_size * 1024 * 1024 :
-      FLAGS_mr_reducer_message_queue_size * 1024 * 1024;
+        FLAGS_mr_mapper_message_queue_size * 1024 * 1024 :
+        FLAGS_mr_reducer_message_queue_size * 1024 * 1024;
 }
 
 const std::string& InputFormat() {
@@ -454,9 +454,9 @@ ReducerBase* CreateReducer() {
   ReducerBase* reducer = NULL;
   if (IAmReduceWorker()) {
     reducer = (FLAGS_mr_batch_reduction ?
-               reinterpret_cast<ReducerBase*>(
+                 reinterpret_cast<ReducerBase*>(
                    CREATE_BATCH_REDUCER(FLAGS_mr_reducer_class)) :
-               reinterpret_cast<ReducerBase*>(
+                 reinterpret_cast<ReducerBase*>(
                    CREATE_INCREMENTAL_REDUCER(FLAGS_mr_reducer_class)));
     if (reducer == NULL) {
       LOG(ERROR) << "Cannot create reducer: " << FLAGS_mr_reducer_class;

@@ -65,7 +65,13 @@ add_definitions(" -Wall -Wno-sign-compare -Werror -O2 ")
 #------------------------------------------------------------------------------
 # Declare where our project will be installed.
 #------------------------------------------------------------------------------
-set(CMAKE_INSTALL_PREFIX "/home/wyi/mapreduce-lite")
+set(CMAKE_INSTALL_PREFIX "/Users/michael/Research/mapreduce-lite/mapreduce-lite")
+
+set(Boost_ADDITIONAL_VERSIONS 1.55)
+set(BOOST_DIR "/usr/local/boost-1.55.0")
+set(BOOST_ROOT "/usr/local/boost-1.55.0")
+
+find_package(Boost 1.55 COMPONENTS filesystem REQUIRED)
 
 #------------------------------------------------------------------------------
 # Ensure executables are statically linked with libraries.

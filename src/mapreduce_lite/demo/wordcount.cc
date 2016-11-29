@@ -165,7 +165,7 @@ using mapreduce_lite::ReduceInputIterator;
 
 
 class WordCountMapper : public Mapper {
- public:
+public:
   void Map(const std::string& key, const std::string& value) {
     std::vector<std::string> words;
     SplitStringUsing(value, " ", &words);
@@ -178,7 +178,7 @@ REGISTER_MAPPER(WordCountMapper);
 
 
 class WordCountMapperWithCombiner : public Mapper {
- public:
+public:
   void Map(const std::string& key, const std::string& value) {
     std::vector<std::string> words;
     SplitStringUsing(value, " ", &words);
@@ -198,7 +198,7 @@ class WordCountMapperWithCombiner : public Mapper {
     // must clear the intermediate data after flush it.
     combined_results.clear();
   }
- private:
+private:
   map<string, int> combined_results;
 };
 REGISTER_MAPPER(WordCountMapperWithCombiner);
@@ -206,7 +206,7 @@ REGISTER_MAPPER(WordCountMapperWithCombiner);
 
 
 class WordCountReducer : public IncrementalReducer {
- public:
+public:
   void Start() {
     Output("", "Following lines are reduce outputs:");
   }
@@ -247,7 +247,7 @@ REGISTER_INCREMENTAL_REDUCER(WordCountReducer);
 // using REGISTER_MR_REDUCER; whereas in incremental reduction mode, reducers
 // are derived from MRML_Reducer and registered using REGISTER_REDUCER.
 class WordCountBatchReducer : public BatchReducer {
- public:
+public:
   void Start() {
     //Output("", "Following lines are MR reduce outputs:");
   }
